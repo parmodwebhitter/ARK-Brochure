@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ARK Elevators – Brochure</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 0; }
+  :root {
+    --ink: #f6efe4; --char: #24201d;
+    --gold: #c9a35b; --gold-lt: #e6c78b; --gold-dk: #d6b16b;
+    --paper: #171513; --line: rgba(201,163,91,.3); --tint: rgba(255,255,255,.04);
+    --txt: #e9e1d4; --muted: rgba(233,225,212,.68);
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Poppins', Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #777; }
+  body { font-family: var(--sans); font-variant-numeric: lining-nums; color: var(--txt); font-size: 9.4pt; line-height: 1.6; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .page { width: 210mm; height: 297mm; position: relative; overflow: hidden; background: radial-gradient(ellipse at 30% 10%, #262220 0%, #171513 55%, #0f0e0d 100%); color: var(--txt); margin: 0 auto 8mm; break-after: page; }
+  .page:last-of-type { break-after: auto; }
+  @media print { html, body { background: none; } .page { margin: 0; } }
+  img { display: block; }
+  b, strong { font-weight: 600; color: var(--ink); }
+  .bg { position: absolute; inset: 0; background-size: cover; background-position: var(--pos, center); }
+  .pad { padding: 20mm 18mm 0; }
+
+  /* type */
+  .h1 { font-family: var(--serif); font-weight: 600; font-size: 34pt; line-height: 1.05; color: var(--ink); }
+  .h2 { font-family: var(--serif); font-weight: 600; font-size: 22pt; line-height: 1.1; color: var(--ink); }
+  .sub { font-size: 8.4pt; font-weight: 600; color: var(--ink); padding-bottom: 1.5mm; margin-bottom: 2.5mm; position: relative; }
+  .sub::after { content: ''; position: absolute; left: 0; bottom: 0; width: 12mm; height: 1.2pt; background: var(--gold); }
+  .kicker { font-size: 7.2pt; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: var(--gold-dk); }
+  .lead { font-family: var(--serif); font-size: 15pt; line-height: 1.35; color: var(--txt); }
+  .lead em { color: var(--gold-dk); font-weight: 600; }
+  .muted { color: var(--muted); }
+  .short { width: 14mm; height: 1.5px; background: var(--gold); margin: 3mm 0 5mm; }
+  p + p { margin-top: 2.5mm; }
+
+  .folio { position: absolute; left: 18mm; right: 18mm; bottom: 9mm; display: flex; justify-content: space-between; font-size: 6.6pt; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); z-index: 3; }
+  .folio b { color: var(--gold-dk); }
+  .folio.on-dark { color: rgba(239,231,218,.7); text-shadow: 0 0 6px rgba(0,0,0,.6); }
+  .folio.on-dark b { color: var(--gold-lt); }
+  .mark { position: absolute; pointer-events: none; }
+
+  .dots { list-style: none; }
+  .dots li { position: relative; padding-left: 5mm; margin: 1.5mm 0; }
+  .dots li::before { content: ''; position: absolute; left: .3mm; top: 2.2mm; width: 1.5mm; height: 1.5mm; background: var(--gold); transform: rotate(45deg); }
+  .ticks { list-style: none; }
+  .ticks li { position: relative; padding-left: 5.5mm; margin: 1.6mm 0; font-size: 8.7pt; }
+  .ticks li::before { content: ''; position: absolute; left: 0; top: 1.7mm; width: 1.7mm; height: 1.7mm; border-right: 1.3pt solid var(--gold-lt); border-top: 1.3pt solid var(--gold-lt); transform: rotate(45deg); }
+
+  /* tables */
+  table.t { width: 100%; border-collapse: collapse; font-size: 8pt; }
+  table.t th { background: rgba(201,163,91,.16); color: var(--gold-lt); font-weight: 500; letter-spacing: 1.4px; text-transform: uppercase; font-size: 6.6pt; text-align: left; padding: 2.8mm 3mm; }
+  table.t td { padding: 2.6mm 3mm; border-bottom: .5pt solid var(--line); vertical-align: top; }
+  table.t td:first-child { font-weight: 600; color: var(--ink); white-space: nowrap; }
+  table.t tr:nth-child(even) td { background: rgba(255,255,255,.035); }
+  table.t.boxed { border: .5pt solid var(--line); }
+
+  /* cover + back */
+  .cover, .backcover { background: radial-gradient(ellipse at 70% 18%, #2b2621 0%, #151311 55%, #0d0c0b 100%); color: #f3ebdd; }
+  .frame { position: absolute; inset: 8mm; border: .4pt solid rgba(201,163,91,.45); pointer-events: none; }
+  .cover .logo { position: absolute; top: 34mm; left: 50%; transform: translateX(-50%); width: 92mm; mix-blend-mode: lighten; }
+  .cover .title { position: absolute; left: 0; right: 0; bottom: 46mm; text-align: center; }
+  .cover .title .kick { font-size: 7.4pt; letter-spacing: 4px; text-transform: uppercase; color: var(--gold-lt); }
+  .cover .title h1 { font-family: var(--serif); font-weight: 500; font-size: 46pt; line-height: 1.02; color: #f6efe4; margin-top: 5mm; }
+  .cover .title h1 em { color: var(--gold-lt); font-weight: 500; }
+  .cover .title .rule { width: 40mm; height: .6pt; margin: 7mm auto 0; background: linear-gradient(90deg, rgba(201,163,91,0), var(--gold), rgba(201,163,91,0)); }
+  .cover .url { position: absolute; bottom: 16mm; left: 0; right: 0; text-align: center; font-size: 6.8pt; letter-spacing: 3px; color: rgba(243,235,221,.7); }
+
+  /* full-bleed photo pages */
+  .shade-t { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,9,8,.86) 0%, rgba(10,9,8,.5) 26%, rgba(10,9,8,0) 50%, rgba(10,9,8,0) 62%, rgba(10,9,8,.45) 100%); }
+  .shade-b { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,9,8,.25) 0%, rgba(10,9,8,0) 25%, rgba(10,9,8,0) 60%, rgba(10,9,8,.8) 100%); }
+  .opener-head { position: absolute; top: 20mm; left: 18mm; right: 18mm; color: #f6efe4; z-index: 2; }
+  .opener-head .h1 { font-size: 38pt; margin-top: 3mm; color: #f6efe4; text-shadow: 0 1px 12px rgba(0,0,0,.35); }
+  .opener-box { position: absolute; left: 9.4mm; bottom: 20mm; width: 114mm; background: none; border: 0; padding: 7mm 8mm; color: #efe7da; z-index: 2; text-shadow: 0 1px 6px rgba(0,0,0,.7); }
+  .opener-box::after { content: ""; position: absolute; inset: -24mm -26mm -22mm -18mm; z-index: -1; pointer-events: none; background: rgba(74,68,62,.42); -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 34mm, #000 calc(100% - 34mm), transparent 100%), linear-gradient(180deg, transparent 0, #000 30mm, #000 calc(100% - 30mm), transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 34mm, #000 calc(100% - 34mm), transparent 100%), linear-gradient(180deg, transparent 0, #000 30mm, #000 calc(100% - 30mm), transparent 100%); -webkit-mask-composite: source-in; mask-composite: intersect; }
+  .opener-box h4 { font-weight: 600; font-size: 10.5pt; line-height: 1.35; color: #fff; margin-bottom: 3mm; }
+  .opener-box .foot { margin-top: 3.5mm; font-size: 7.6pt; color: var(--gold-lt); }
+
+  /* model page spec card */
+  .spec { position: absolute; width: 86mm; background: none; border: 0; padding: 6.5mm 7mm 7mm; color: #efe7da; z-index: 2; text-shadow: 0 1px 6px rgba(0,0,0,.55); }
+  .spec::after { content: ""; position: absolute; inset: -22mm -26mm; z-index: -1; pointer-events: none; background: radial-gradient(closest-side, rgba(10,9,8,.86) 0%, rgba(10,9,8,.78) 55%, rgba(10,9,8,.4) 80%, rgba(10,9,8,0) 100%); }
+  .spec.light { color: #1f1b18; text-shadow: none; }
+  .spec.light::after { inset: -16mm -16mm; background: radial-gradient(farthest-side, rgba(var(--sh),.88) 0%, rgba(var(--sh),.84) 70%, rgba(var(--sh),.45) 88%, rgba(var(--sh),0) 100%); }
+  .spec.light.soft::after { background: radial-gradient(farthest-side, rgba(var(--sh),.62) 0%, rgba(var(--sh),.56) 70%, rgba(var(--sh),.28) 88%, rgba(var(--sh),0) 100%); }
+  .spec.light.nl::after { inset: -10mm -4mm -12mm -2.6mm; background: rgba(var(--sh),.86); -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 9mm, #000 calc(100% - 9mm), transparent 100%); mask-image: linear-gradient(180deg, transparent 0, #000 9mm, #000 calc(100% - 9mm), transparent 100%); }
+  .spec.light.box::after { inset: -10mm calc(-1 * var(--rx, 17.2mm)) -4mm -9.4mm; background: linear-gradient(90deg, rgba(var(--sh),calc(var(--sa,.6) * .45)) 0, rgba(var(--sh),calc(var(--sa,.6) * .8)) 5mm, rgba(var(--sh),var(--sa,.6)) 10mm, rgba(var(--sh),var(--sa,.6)) calc(100% - 22mm), rgba(var(--sh),calc(var(--sa,.6) / 2)) calc(100% - 11mm), rgba(var(--sh),0) 100%); -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 9mm, #000 calc(100% - 15mm), transparent 100%); mask-image: linear-gradient(180deg, transparent 0, #000 9mm, #000 calc(100% - 15mm), transparent 100%); }
+  .spec.light .tag, .spec.light dt, .spec.light .note { color: #5a3d0e; font-weight: 600; }
+  .spec.light h3, .spec.light dd { color: #15110e; }
+  .spec.light .desc { color: #2c2622; }
+  .spec.light dt { border-top-color: rgba(90,61,14,.5); }
+  .spec.warm { color: #f3e9da; text-shadow: 0 1px 4px rgba(30,18,10,.55); }
+  .spec.warm::after { background: radial-gradient(closest-side, rgba(52,34,22,.84) 0%, rgba(58,39,26,.74) 55%, rgba(66,45,30,.38) 80%, rgba(66,45,30,0) 100%); }
+  .spec.warm .tag, .spec.warm dt, .spec.warm .note { color: #e8c88e; }
+  .spec.warm h3, .spec.warm dd { color: #fff8ee; }
+  .spec.warm .desc { color: rgba(246,236,222,.9); }
+  .spec.warm dt { border-top-color: rgba(232,200,142,.45); }
+  .spec.warm.box::after, .spec.warm.tight::after { inset: var(--in); background: rgba(var(--wc),var(--wa,.72)); -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 var(--fx,12mm), #000 calc(100% - var(--fx,12mm)), transparent 100%), linear-gradient(180deg, transparent 0, #000 var(--fy,12mm), #000 calc(100% - var(--fy,12mm)), transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 var(--fx,12mm), #000 calc(100% - var(--fx,12mm)), transparent 100%), linear-gradient(180deg, transparent 0, #000 var(--fy,12mm), #000 calc(100% - var(--fy,12mm)), transparent 100%); -webkit-mask-composite: source-in; mask-composite: intersect; }
+  .spec.warm.char::after { background: radial-gradient(farthest-side, rgba(30,27,24,.82) 0%, rgba(34,30,27,.74) 62%, rgba(40,35,31,.36) 86%, rgba(40,35,31,0) 100%); inset: -16mm -16mm; }
+  .spec .tag { font-size: 6.4pt; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold-lt); }
+  .spec h3 { font-family: var(--serif); font-weight: 600; font-size: 28pt; line-height: 1.05; color: #fff; margin: 1.5mm 0 2mm; }
+  .spec .desc { font-size: 7.8pt; line-height: 1.5; color: rgba(239,231,218,.85); margin-bottom: 3.5mm; }
+  .spec dl { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm 5mm; }
+  .spec dt { font-size: 6.1pt; letter-spacing: 1.8px; text-transform: uppercase; color: var(--gold-lt); font-weight: 600; border-top: .5pt solid rgba(201,163,91,.45); padding-top: 1.6mm; }
+  .spec dd { font-size: 7.8pt; color: #fff; text-transform: uppercase; letter-spacing: .4px; }
+  .spec .note { margin-top: 3.5mm; font-size: 6.8pt; font-style: italic; color: var(--gold-lt); }
+
+  /* about */
+  .about-img { position: absolute; right: 0; top: 96mm; width: 92mm; height: 182mm; background-size: cover; }
+  .creds { width: 92mm; }
+  .creds section { margin-top: 6.5mm; }
+  .creds h5 { font-size: 10.5pt; font-weight: 500; color: var(--ink); line-height: 1.3; }
+  .creds .bar { width: 12mm; height: 1.2pt; background: var(--gold); margin: 1.8mm 0 2.2mm; }
+  .creds p { font-size: 8.2pt; color: var(--muted); line-height: 1.5; }
+
+  /* story */
+  .story { text-align: center; padding: 22mm 24mm 0; }
+  .story .bar { padding: 3.5mm 0; margin: 0 0 5mm; border-top: .6pt solid var(--gold); border-bottom: .6pt solid var(--gold); }
+  .story .bar h3 { font-family: var(--serif); font-weight: 600; font-size: 20pt; color: var(--ink); }
+  .story p { color: var(--txt); font-size: 9.3pt; padding: 0 6mm; }
+  .story p i { color: var(--ink); }
+  .story section + section { margin-top: 9mm; }
+
+  /* range at a glance */
+  .glance-strip { position: absolute; left: 0; top: 0; bottom: 0; width: 44mm; background-size: cover; }
+  .glance { position: absolute; left: 56mm; right: 16mm; top: 22mm; }
+  .glance .t td:last-child { white-space: normal; }
+  .glance .h1 { font-size: 30pt; }
+  .glance-wide .t { font-size: 8.8pt; } .glance-wide .t td { padding: 4mm 4mm; } .glance-wide .t th { padding: 3.6mm 4mm; }
+  .glance-wide .dots { font-size: 9.2pt !important; } .glance-wide .dots li { margin: 2.6mm 0; } .glance-wide .sub { margin-top: 13mm !important; }
+
+  /* overview */
+  .finish { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; margin-top: 4mm; }
+  .finish > div { border: .5pt solid var(--line); background: rgba(255,255,255,.03); padding: 5mm; }
+  .finish h4 { font-family: var(--serif); font-size: 17pt; font-weight: 600; color: var(--ink); }
+  .finish .kicker { font-size: 6.4pt; }
+
+  /* 3D */
+  .callout { position: absolute; font-size: 7pt; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink); line-height: 1.35; }
+  .callout span { display: block; font-weight: 400; letter-spacing: .3px; text-transform: none; color: var(--muted); font-size: 7.4pt; margin-top: .6mm; }
+
+  /* features */
+  .diagrams { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5mm; margin: 4mm 0 2mm; }
+  .diagram { text-align: center; }
+  .diagram svg { width: 100%; height: 64mm; }
+  .diagram b { display: block; font-size: 8.4pt; margin-top: 1mm; }
+  .diagram span { font-size: 7.2pt; color: var(--muted); }
+  .feat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm 9mm; }
+  .feat-grid .dots li { font-size: 8.2pt; margin: 1.2mm 0; }
+  .divider { height: .6pt; background: linear-gradient(90deg, var(--gold), rgba(201,163,91,.1)); margin: 6mm 0; }
+  .cab-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3mm; margin-top: 3mm; }
+  .cab-row figure { position: relative; height: 72mm; overflow: hidden; }
+  .cab-row img { width: 100%; height: 100%; object-fit: cover; }
+  .cab-row figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 6mm 2.5mm 2mm; font-size: 6.2pt; letter-spacing: 1.4px; text-transform: uppercase; color: #fff; background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.75)); }
+
+  /* safety */
+  .feat { width: 100%; border-collapse: collapse; font-size: 8.2pt; }
+  .feat th { text-align: left; font-size: 6.6pt; letter-spacing: 1.8px; text-transform: uppercase; color: var(--gold-dk); font-weight: 600; padding: 0 0 2mm; border-bottom: .8pt solid var(--gold); }
+  .feat td { padding: 1.9mm 0; border-bottom: .5pt solid var(--line); vertical-align: top; }
+  .feat td:first-child { width: 50mm; font-weight: 600; color: var(--ink); padding-right: 4mm; }
+  .feat td:last-child { color: var(--txt); }
+  .cert3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5mm; }
+  .cert3 > div { background: var(--char); border: .5pt solid rgba(201,163,91,.4); color: #efe7da; padding: 5mm 4.5mm; }
+  .cert3 .kicker { color: var(--gold-lt); font-size: 6.2pt; }
+  .cert3 h5 { font-family: var(--serif); font-size: 15pt; font-weight: 600; color: #fff; line-height: 1.1; margin: 1.5mm 0; }
+  .cert3 p { font-size: 7.4pt; color: rgba(239,231,218,.8); line-height: 1.45; }
+  .check { display: grid; grid-template-columns: 1fr 1fr; gap: 0 9mm; }
+  .check li { font-size: 8.2pt; }
+
+  /* installation */
+  .steps4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4mm; border-top: .6pt solid var(--line); padding-top: 5mm; }
+  .steps4 .k { font-size: 7pt; font-weight: 600; color: var(--ink); text-align: center; }
+  .steps4 svg { width: 100%; height: 46mm; margin: 2mm 0; }
+  .steps4 ul { list-style: none; font-size: 7pt; color: var(--muted); line-height: 1.5; }
+  .steps4 li::before { content: '– '; color: var(--gold-dk); }
+  .note-c { text-align: center; font-size: 6.8pt; color: var(--muted); margin-top: 6mm; }
+
+  /* warranty */
+  .amc td:nth-child(2) { white-space: normal; }
+
+  /* support (dark) */
+  .darkpage { background: radial-gradient(ellipse at 30% 10%, #262220 0%, #171513 55%, #0f0e0d 100%); color: #e9e1d4; }
+  .darkpage .h1 { color: #f6efe4; }
+  .darkpage .kicker { color: var(--gold-lt); }
+  .darkpage b { color: #fff; }
+  .rows .r { display: grid; grid-template-columns: 38mm 1fr; padding: 3.6mm 0; border-top: .5pt solid rgba(201,163,91,.35); }
+  .rows .r:last-child { border-bottom: .5pt solid rgba(201,163,91,.35); }
+  .rows .r span { font-size: 7pt; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-lt); font-weight: 600; padding-top: .6mm; }
+  .rows .r div { font-size: 9.4pt; color: #f3ebdd; }
+  .svc { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; }
+  .svc div { border: .5pt solid rgba(201,163,91,.4); padding: 4.5mm; }
+  .svc b { display: block; font-family: var(--serif); font-size: 14pt; font-weight: 600; line-height: 1.15; color: var(--gold-lt); margin-bottom: 1mm; }
+  .svc span { font-size: 7.6pt; color: rgba(233,225,212,.8); line-height: 1.45; display: block; }
+  .faq dt { font-weight: 600; color: #fff; font-size: 8.8pt; margin-top: 4.2mm; }
+  .faq dd { font-size: 8.2pt; color: rgba(233,225,212,.8); margin-top: .8mm; padding-bottom: 3.6mm; border-bottom: .5pt solid rgba(201,163,91,.25); }
+
+  .backcover .logo { width: 70mm; margin: 0 auto; display: block; mix-blend-mode: lighten; }
+</style>
+</head>
+<body>
+
+<!-- 1 · COVER -->
+<div class="page cover">
+  <svg class="mark" viewBox="0 0 210 297" style="inset:0;width:210mm;height:297mm" aria-hidden="true">
+    <g fill="none" stroke="#c9a35b" stroke-width=".35" opacity=".55">
+      <path d="M-20 235 L70 145 Q76 139 82 145 L230 293"/>
+      <path d="M-20 290 L95 175 Q101 169 107 175 L230 298"/>
+      <path d="M110 310 L170 250 Q176 244 182 250 L240 308"/>
+    </g>
+  </svg>
+  <div class="frame"></div>
+  <img class="logo" src="images/ark-elevators-logo-home-lift-company.webp" alt="ARK Elevators">
+  <div class="title">
+    <div class="kick">Home Lifts &nbsp;·&nbsp; Passenger Lifts &nbsp;·&nbsp; Compact Lifts</div>
+    <h1>Built for Every<br><em>Level of Life</em></h1>
+    <div class="rule"></div>
+  </div>
+  <div class="url">+91 78890 88890 &nbsp;|&nbsp; +91 88821 43594 &nbsp;|&nbsp; INFO@ARKELEVATORS.IN</div>
+</div>
+
+<!-- 2 · VISION CUBE PLUS FULL PAGE -->
+<div class="page">
+  <div class="bg" style="background-image:url('images/vision-cube-plus-glass-elevator-staircase-hq.png');--pos:74% 50%"></div>
+  <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,9,8,.85) 0%,rgba(10,9,8,.6) 18%,rgba(10,9,8,0) 34%)"></div>
+  <div style="position:absolute;top:18mm;left:11mm;right:18mm;z-index:2">
+    <div class="kicker" style="color:var(--gold-lt);letter-spacing:4px">Design-led Elevators</div>
+    <h1 style="margin-top:3mm;font-family:var(--serif);font-weight:500;font-size:46pt;line-height:1.02;color:#f6efe4;text-shadow:0 1px 14px rgba(0,0,0,.45)">The <span style="color:var(--gold-lt)">Architect's</span> Choice</h1>
+    <div style="width:30mm;height:1pt;margin-top:5mm;background:linear-gradient(90deg,var(--gold),rgba(201,163,91,0))"></div>
+  </div>
+</div>
+
+<!-- 4 · MISSION / VISION / VALUES -->
+<div class="page">
+  <div class="story">
+    <section>
+      <div class="bar"><h3>Our Mission</h3></div>
+      <p>Welcome to Ark Elevators, where we are dedicated to <b>elevating the standard of vertical mobility across India</b>. Our mission is to deliver <b>safe, reliable, and innovative</b> elevator solutions tailored to the unique needs of our diverse communities.</p>
+      <p>Built on a foundation of precision engineering and rigorous safety standards, Ark Elevators ensures a smooth and secure experience in every building, from residential complexes to commercial spaces. We pride ourselves on our <b>robust maintenance network</b>, providing prompt and reliable support to keep your vertical transportation running at its best.</p>
+    </section>
+    <section>
+      <div class="bar"><h3>Our Vision</h3></div>
+      <p>To be the <b>foremost pioneers in vertical mobility</b>, reshaping India's future skyline with intelligent elevators where <b>uncompromising safety and exquisite architecture</b> move forward together, redefining the very essence of vertical living.</p>
+    </section>
+    <section>
+      <div class="bar"><h3>Our Values</h3></div>
+      <p>Inspired by our mission and vision, our core values prioritize <b>uncompromising safety</b> for every passenger, <b>intelligent design</b> that enhances architecture, and <b>dedicated support</b> that builds trust with every client we serve across India.</p>
+    </section>
+    <section>
+      <div class="bar"><h3>One Partner, Every Stage</h3></div>
+      <p>Site survey, model recommendation, installation, testing and maintenance, all handled by one ARK team.</p>
+      <p><i>Because every floor deserves a safe, beautiful ride.</i></p>
+    </section>
+  </div>
+  <div class="folio"><span><b>ARK</b> Elevators</span><span>03</span></div>
+</div>
+
+<!-- 5 · 02 HOME ELEVATORS OPENER -->
+<div class="page">
+  <div class="bg" style="background-image:url('images/small-glass-lift-for-home-stairwell.webp');--pos:center 50%"></div>
+  <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,9,8,.9) 0%,rgba(10,9,8,.7) 16%,rgba(10,9,8,.25) 28%,rgba(10,9,8,0) 38%)"></div>
+  <div style="position:absolute;left:0;right:0;bottom:0;height:28mm;background:linear-gradient(0deg,rgba(10,9,8,.6),rgba(10,9,8,0))"></div>
+  <div style="position:absolute;top:18mm;left:11mm;right:18mm;z-index:2">
+    <div class="kicker" style="color:var(--gold-lt);letter-spacing:4px">Home Elevators</div>
+    <h1 style="margin-top:3mm;font-family:var(--serif);font-weight:500;font-size:46pt;line-height:1.02;color:#f6efe4;text-shadow:0 1px 14px rgba(0,0,0,.45)">Safe for Every Generation</h1>
+    <div style="margin-top:2.5mm;font-family:var(--serif);font-weight:500;font-size:24pt;line-height:1.1;color:var(--gold-lt);text-shadow:0 1px 14px rgba(0,0,0,.45)">Vision &amp; Ark Rise</div>
+    <div style="width:30mm;height:1pt;margin-top:5mm;background:linear-gradient(90deg,var(--gold),rgba(201,163,91,0))"></div>
+  </div>
+  <div class="folio on-dark"><span><b>ARK</b> Elevators</span><span>04</span></div>
+</div>
+
+<!-- 6 · RANGE AT A GLANCE (HOME) -->
+<div class="page">
+  <div class="glance glance-wide" style="left:18mm;right:18mm;top:26mm">
+    <div class="kicker">Home Elevators</div>
+    <div class="h1" style="margin-top:2mm">Range at a Glance</div>
+    <div class="short"></div>
+    <table class="t boxed">
+      <thead><tr><th style="width:38mm">Model</th><th>Best for</th></tr></thead>
+      <tbody>
+        <tr><td>Vision 360</td><td>Round cabin that becomes a design feature; 150 mm pit, up to G+3</td></tr>
+        <tr><td>Vision Cube</td><td>Square cabin for tight indoor spaces; 1050 × 1050 mm footprint</td></tr>
+        <tr><td>Vision Cube Plus</td><td>Larger, more premium square cabin; up to G+5, no pit</td></tr>
+        <tr><td>Ark Rise</td><td>New or existing homes; no pit, no headroom, indoor or outdoor</td></tr>
+        <tr><td>Ark Rise Infinity</td><td>Ark Rise with premium cabin materials and personalised panels</td></tr>
+      </tbody>
+    </table>
+    <div class="sub" style="margin-top:9mm">Key Differentiators</div>
+    <ul class="dots" style="font-size:8.4pt">
+      <li>Every home model runs on normal single-phase household power</li>
+      <li>Vision lifts are self-supporting, so no civil shaft is needed</li>
+      <li>Ark Rise needs no pit and no headroom, for minimal civil work</li>
+      <li>Rope, belt and hydraulic drives, chosen to suit your site</li>
+      <li>Compliant with Machinery Directive 2006/42/EC (Ark Rise)</li>
+    </ul>
+    <div class="sub" style="margin-top:9mm">Tailored For</div>
+    <p style="font-size:8.6pt">Villas, independent homes, duplexes, triplexes and existing houses up to G+5.</p>
+    <div style="margin-top:9mm;padding:5mm 6mm;background:var(--char);color:#efe7da">
+      <div class="h2" style="color:#f6efe4;font-size:16pt">Not sure which model fits?</div>
+      <p style="margin-top:1mm;font-size:7.8pt;color:rgba(239,231,218,.8)">Share your floors and space, and we will recommend the right lift after a free site survey. <b style="color:var(--gold-lt)">+91 78890 88890 / +91 88821 43594</b></p>
+    </div>
+  </div>
+  <div class="folio"><span><b>ARK</b> Elevators</span><span>05</span></div>
+</div>
+
+<!-- 7 · VISION 360 -->
+<div class="page">
+  <div class="bg" style="background-image:url('images/vision-360-round-glass-elevator-hq.png');--pos:72% 50%"></div>
+  <div class="spec light box" style="--sh:250,248,244;left:9.4mm;bottom:27mm;width:82.5mm;padding:7.3mm 4.9mm 10.7mm 5.6mm">
+    <div class="tag">Vision Series · Circular</div>
+    <h3>Vision 360</h3>
+    <p class="desc">A round cabin with a powder-coated metal frame, for a modern look and corrosion resistance.</p>
+    <dl>
+      <div><dt>Structure</dt><dd>Self-supporting</dd></div>
+      <div><dt>Drive</dt><dd>Hydraulic</dd></div>
+      <div><dt>Rated load</dt><dd>250 kg</dd></div>
+      <div><dt>Floors</dt><dd>Up to G+3</dd></div>
+      <div><dt>Speed</dt><dd>0.25 – 0.50 m/s</dd></div>
+      <div><dt>Power</dt><dd>Single phase</dd></div>
+      <div><dt>External Ø</dt><dd>1050 mm</dd></div>
+      <div><dt>Pit</dt><dd>150 mm</dd></div>
+    </dl>
+    <p class="note">*Entrance 600 mm · cabin Ø 850 mm · headroom 2850 mm</p>
+  </div>
+  <div class="folio on-dark"><span><b>ARK</b> Elevators</span><span>06</span></div>
+</div>
+
+<!-- 8 · VISION CUBE -->
+<div class="page">
+  <div class="bg" style="background-image:url('images/vision-cube-glass-home-lift-living-room-stairs.webp');--pos:62% 50%"></div>
+  <div class="spec light box" style="--sh:214,206,191;--rx:9mm;--sa:.8;left:9.4mm;bottom:69mm;width:82.5mm;padding:7.3mm 4.9mm 10.7mm 5.6mm">
+    <div class="tag">Vision Series · Square</div>
+    <h3>Vision Cube</h3>
+    <p class="desc">A square cabin with clean lines and a powder-coated metal frame, made for tight indoor spaces.</p>
+    <dl>
+      <div><dt>Structure</dt><dd>Self-supporting</dd></div>
+      <div><dt>Drive</dt><dd>Hydraulic</dd></div>
+      <div><dt>Rated load</dt><dd>250 kg</dd></div>
+      <div><dt>Floors</dt><dd>Up to G+3</dd></div>
+      <div><dt>Speed</dt><dd>0.25 – 0.50 m/s</dd></div>
+      <div><dt>Power</dt><dd>Single phase</dd></div>
+      <div><dt>External</dt><dd>1050 × 1050 mm</dd></div>
+      <div><dt>Pit</dt><dd>150 mm</dd></div>
+    </dl>
+    <p class="note">*Entrance 600 mm · cabin 850 × 850 mm · headroom 2850 mm</p>
+  </div>
+  <div class="folio on-dark"><span><b>ARK</b> Elevators</span><span>07</span></div>
+</div>
+
+<!-- 9 · VISION CUBE PLUS -->
+<div class="page">
+  <div class="bg" style="background-image:url('images/vision-cube-plus-glass-home-lift-atrium-hq.png');--pos:center 30%"></div>
+  <div class="spec light nl" style="--sh:200,198,190;left:132.5mm;bottom:24.7mm;width:73.5mm;padding:6.5mm 3mm 7mm 3mm">
+    <div class="tag">Vision Series · New</div>
+    <h3>Vision Cube Plus</h3>
+    <p class="desc">A slightly larger, more premium version of the square Vision Cube, with more floors and no pit.</p>
+    <dl>
+      <div><dt>Structure</dt><dd>Self-supporting</dd></div>
+      <div><dt>Drive</dt><dd>Rope / Belt</dd></div>
+      <div><dt>Rated load</dt><dd>300 – 408 kg</dd></div>
+      <div><dt>Floors</dt><dd>Up to G+5</dd></div>
+      <div><dt>Speed</dt><dd>0.25 – 0.75 m/s</dd></div>
+      <div><dt>Power</dt><dd>Single phase</dd></div>
+      <div><dt>Environment</dt><dd>Indoor</dd></div>
+      <div><dt>Pit</dt><dd>Not required</dd></div>
+    </dl>
+    <p class="note">*Full data sheet available on request</p>
+  </div>
+  <div class="folio on-dark"><span><b>ARK</b> Elevators</span><span>08</span></div>
+</div>
+
+<!-- 10 · ARK RISE -->
+<div class="page">
+  <div class="bg" style="background-image:url('images/ark-rise-home-lift-glass-doors-lobby.webp');--pos:8% 50%"></div>
+  <div style="position:absolute;left:0;top:0;bottom:0;width:90mm;background:linear-gradient(90deg,rgba(92,64,42,.55) 0,rgba(92,64,42,.55) calc(100% - 8mm),rgba(92,64,42,0) 100%);z-index:1;clip-path:polygon(0 0,100% 0,100% 286mm,0 295.4mm)"></div>
+  <div class="spec warm box" style="--wc:92,64,42;--wa:0;--in:-6mm -7mm 0 -14mm;--fx:12mm;--fy:10mm;left:9.4mm;bottom:16mm;width:82.5mm;padding:7.3mm 4.9mm 10.7mm 5.6mm">
+    <div class="tag">Ark Rise Series · Pitless</div>
+    <h3>Ark Rise</h3>
+    <p class="desc">The easy way to add a lift to your home. No deep pit, no headroom, and it runs on normal single-phase household power.</p>
+    <dl>
+      <div><dt>Shaft</dt><dd>Civil (RCC)</dd></div>
+      <div><dt>Drive</dt><dd>Rope / Belt</dd></div>
+      <div><dt>Rated load</dt><dd>300 – 408 kg</dd></div>
+      <div><dt>Floors</dt><dd>Up to G+4</dd></div>
+      <div><dt>Speed</dt><dd>0.25 – 0.75 m/s</dd></div>
+      <div><dt>Power</dt><dd>Single phase</dd></div>
+      <div><dt>Environment</dt><dd>Indoor / Outdoor</dd></div>
+      <div><dt>Pit</dt><dd>Not required</dd></div>
+    </dl>
+    <p class="note">*Compliant with Machinery Directive 2006/42/EC</p>
+  </div>
+  <div class="folio on-dark"><span><b>ARK</b> Elevators</span><span>09</span></div>
+</div>
+
+<!-- 11 · ARK RISE INFINITY -->
+<div class="page">
+  <div class="bg" style="background-image:url('images/ark-rise-infinity-luxury-pitless-home-elevator-hq.png');--pos:center 45%"></div>
+  <div class="spec warm tight" style="--wc:92,64,42;--wa:.55;--in:-8mm -5mm -8mm -14mm;--fx:11mm;--fy:12mm;left:3mm;top:148mm;width:75mm;padding:4mm 4mm 4mm 4mm">
+    <div class="tag">Ark Rise Series · Customisable</div>
+    <h3 style="font-size:25pt;white-space:nowrap">Ark Rise Infinity</h3>
+    <p class="desc">Everything Ark Rise offers, with premium cabin materials, ambient lighting and personalised control panels chosen to match your home.</p>
+    <dl>
+      <div><dt>Shaft</dt><dd>Civil (RCC)</dd></div>
+      <div><dt>Drive</dt><dd>Rope / Belt</dd></div>
+      <div><dt>Rated load</dt><dd>300 – 408 kg</dd></div>
+      <div><dt>Floors</dt><dd>Up to G+4</dd></div>
+      <div><dt>Speed</dt><dd>0.25 – 0.75 m/s</dd></div>
+      <div><dt>Power</dt><dd>Single phase</dd></div>
+      <div><dt>Environment</dt><dd>Indoor / Outdoor</dd></div>
+      <div><dt>Pit</dt><dd>Not required</dd></div>
+    </dl>
+    <p class="note">*Fully customisable cabin and landing doors</p>
+  </div>
+  <div class="folio on-dark"><span><b>ARK</b> Elevators</span><span>10</span></div>
+</div>
+
+<!-- 12 · MODEL COMPARISON -->
+<div class="page">
+  <div class="pad">
+    <div class="kicker">Home Elevators</div>
+    <div class="h1" style="margin-top:2mm">Model Comparison</div>
+    <div class="short"></div>
+    <table class="t boxed">
+      <thead><tr><th>Model</th><th>Shaft</th><th>Drive</th><th>Speed</th><th>Load</th><th>Floors</th><th>Pit</th></tr></thead>
+      <tbody>
+        <tr><td>Vision 360</td><td>Self-supporting</td><td>Hydraulic</td><td>0.25–0.50 m/s</td><td>250 kg</td><td>G+3</td><td>150 mm</td></tr>
+        <tr><td>Vision Cube</td><td>Self-supporting</td><td>Hydraulic</td><td>0.25–0.50 m/s</td><td>250 kg</td><td>G+3</td><td>150 mm</td></tr>
+        <tr><td>Vision Cube Plus</td><td>Self-supporting</td><td>Rope / Belt</td><td>0.25–0.75 m/s</td><td>300–408 kg</td><td>G+5</td><td>No pit</td></tr>
+        <tr><td>Ark Rise</td><td>Civil (RCC)</td><td>Rope / Belt</td><td>0.25–0.75 m/s</td><td>300–408 kg</td><td>G+4</td><td>No pit</td></tr>
+        <tr><td>Ark Rise Infinity</td><td>Civil (RCC)</td><td>Rope / Belt</td><td>0.25–0.75 m/s</td><td>300–408 kg</td><td>G+4</td><td>No pit</td></tr>
+      </tbody>
+    </table>
+    <p class="muted" style="font-size:7pt;margin-top:2.5mm">All home models run on single-phase power.</p>
+
+    <div class="h2" style="margin-top:8mm">Vision Dimensions</div>
+    <div class="short" style="margin-bottom:4mm"></div>
+    <table class="t boxed">
+      <thead><tr><th>Dimension</th><th>Vision 360</th><th>Vision Cube</th></tr></thead>
+      <tbody>
+        <tr><td>External size</td><td>1050 mm diameter</td><td>1050 × 1050 mm</td></tr>
+        <tr><td>Internal cabin</td><td>850 mm diameter</td><td>850 × 850 mm</td></tr>
+        <tr><td>Internal cabin height</td><td>2010 mm</td><td>2010 mm</td></tr>
+        <tr><td>Entrance width</td><td>600 mm</td><td>600 mm</td></tr>
+        <tr><td>Minimum headroom</td><td>2850 mm</td><td>2850 mm</td></tr>
+        <tr><td>Pit required</td><td>150 mm</td><td>150 mm</td></tr>
+      </tbody>
+    </table>
+
+    <div class="h2" style="margin-top:8mm">Model Types &amp; Finish</div>
+    <div class="short" style="margin-bottom:0"></div>
+    <div class="finish">
+      <div><div class="kicker">Standard</div><h4>Ark Rise · Vision</h4><p style="font-size:8pt;color:var(--muted);margin-top:1.5mm">Clean, modern cabins with powder-coated metal frames and steel finishes.</p></div>
+      <div style="background:var(--char);border-color:var(--char)"><div class="kicker" style="color:var(--gold-lt)">Infinity</div><h4 style="color:#fff">Ark Rise Infinity · Ark Z1 Infinity</h4><p style="font-size:8pt;color:rgba(239,231,218,.8);margin-top:1.5mm">Premium cabin interiors, lighting, flooring and personalised control panels.</p></div>
+    </div>
+  </div>
+  <div class="folio"><span><b>ARK</b> Elevators</span><span>11</span></div>
+</div>
+
+<!-- 13 · VISION CUBE 3D -->
+<div class="page">
+  <div style="position:absolute;top:30mm;left:0;right:0;text-align:center">
+    <div class="kicker">Vision Cube</div>
+    <div class="h2" style="font-size:26pt;margin-top:2mm">Upgrade your life with style and safety</div>
+  </div>
+  <svg id="iso" viewBox="0 0 1050 900" style="position:absolute;left:0;top:60mm;width:210mm;height:180mm" aria-label="Vision Cube 3D view"></svg>
+  <p class="note-c" style="position:absolute;left:0;right:0;bottom:16mm">Illustration is a schematic representation for brochure use.</p>
+  <div class="folio"><span><b>ARK</b> Elevators</span><span>12</span></div>
+</div>
+
+<!-- 14 · 03 ARK Z1 OPENER -->
+<div class="page">
+  <div class="bg" style="background-image:url('images/ark-z1-infinity-luxury-traction-elevator.webp');--pos:center 35%"></div>
+  <div class="shade-t"></div>
+  <div class="opener-head" style="top:18mm;left:9.4mm">
+    <div class="kicker" style="color:var(--gold-lt);letter-spacing:4px">For Builders &amp; Developers</div>
+    <h1 style="margin-top:3mm;font-family:var(--serif);font-weight:500;font-size:46pt;line-height:1.02;color:#f6efe4;text-shadow:0 1px 14px rgba(0,0,0,.45)">Built for <span style="color:var(--gold-lt)">Builders</span></h1>
+    <div style="margin-top:2.5mm;font-family:var(--serif);font-weight:500;font-size:26pt;line-height:1.1;color:var(--gold-lt);text-shadow:0 1px 14px rgba(0,0,0,.45)">Ark Z1 Series</div>
+    <div style="width:30mm;height:1pt;margin-top:5mm;background:linear-gradient(90deg,var(--gold),rgba(201,163,91,0))"></div>
+  </div>
+  <div class="opener-box">
+    <h4>Built for high-rise performance, with stable, efficient and vibration-free travel.</h4>
+    <ul class="ticks">
+      <li>Machine-room-less (MRL) design</li>
+      <li>2 drive options: rope drive and belt drive</li>
+      <li>Rated speed 0.75 to 1.5 m/s</li>
+      <li>6 to 18 passenger capacity</li>
+      <li>Up to G+11 stops</li>
+      <li>Three-phase power · 5 ft pit · 15 ft headroom</li>
+    </ul>
+    <p class="foot">Tailored for apartments, offices, showrooms, hospitals and commercial buildings.</p>
+  </div>
+  <div class="folio on-dark"><span><b>ARK</b> Elevators</span><span>13</span></div>
+</div>
+
+<!-- 15 · RANGE AT A GLANCE (Z1) -->
+<div class="page">
+  <div class="glance" style="left:18mm;right:18mm">
+    <div style="display:grid;grid-template-columns:1fr 78mm;gap:8mm;align-items:start">
+      <div>
+        <div class="kicker">Passenger Lifts</div>
+        <div class="h1" style="margin-top:2mm">Range at a Glance</div>
+        <div class="short"></div>
+        <table class="t boxed">
+      <thead><tr><th style="width:36mm">Model</th><th>Best for</th></tr></thead>
+      <tbody>
+        <tr><td>Ark Z1</td><td>Mid- to high-rise buildings; rope or belt drive, 6–18 passengers, up to G+11</td></tr>
+        <tr><td>Ark Z1 Infinity</td><td>Ark Z1 performance with a fully customised premium cabin</td></tr>
+      </tbody>
+    </table>
+      </div>
+      <img src="images/ark-z1-passenger-lift-stainless-doors-marble-lobby.webp" alt="Ark Z1 passenger lift with stainless steel doors in a marble lobby" style="width:78mm;height:78mm;object-fit:cover;object-position:center 45%;border-radius:3mm">
+    </div>
+    <table class="t boxed" style="margin-top:7mm">
+      <thead><tr><th style="width:36mm">Specification</th><th>Ark Z1 / Ark Z1 Infinity</th></tr></thead>
+      <tbody>
+        <tr><td>Operating system</td><td>Rope drive / belt drive</td></tr>
+        <tr><td>Rated speed</td><td>0.75 – 1.5 m/s</td></tr>
+        <tr><td>Capacity</td><td>6 – 18 passengers</td></tr>
+        <tr><td>Number of stops</td><td>Up to G+11</td></tr>
+        <tr><td>Power supply</td><td>Three phase</td></tr>
+        <tr><td>Pit requirement</td><td>5 ft</td></tr>
+        <tr><td>Headroom</td><td>15 ft, clearance for the traction system</td></tr>
+        <tr><td>Shaft</td><td>Civil (RCC) shaft</td></tr>
+      </tbody>
+    </table>
+    <div class="sub" style="margin-top:8mm">Key Differentiators</div>
+    <ul class="dots" style="font-size:8.4pt">
+      <li>Machine-room-less design saves space on the roof</li>
+      <li>Rope and belt-drive options on both models</li>
+      <li>Highest capacity in the ARK range, up to 18 passengers</li>
+      <li>Infinity cabins with premium interiors, lighting and flooring</li>
+    </ul>
+    <div class="sub" style="margin-top:8mm">Tailored For</div>
+    <p style="font-size:8.6pt">Apartment complexes, commercial offices, showrooms, hospitals, hotels and public buildings up to G+11.</p>
+  </div>
+  <div class="folio"><span><b>ARK</b> Elevators</span><span>14</span></div>
+</div>
+
+<!-- 16 · 04 FEATURES & TECHNOLOGY (1) -->
+<div class="page">
+  <div class="pad">
+    <div class="h1" style="margin-top:2mm">Features &amp; Technology</div>
+    <div class="short"></div>
+    <div class="sub">Drive Technology</div>
+    <p style="font-size:8.6pt">ARK lifts use three proven drive systems. We recommend the one that best suits your building after the site survey.</p>
+    <div class="diagrams">
+      <div class="diagram">
+        <svg viewBox="0 0 160 170" fill="none" stroke="#e9e1d4" stroke-width="1.4">
+          <rect x="20" y="6" width="120" height="8"/>
+          <circle cx="80" cy="30" r="14"/><circle cx="80" cy="30" r="3" fill="#e9e1d4"/>
+          <path d="M66 30 V96 M94 30 V62"/>
+          <rect x="44" y="96" width="44" height="58"/><path d="M52 104h28M66 104v50"/>
+          <rect x="86" y="62" width="16" height="34" fill="rgba(201,163,91,.22)"/><text x="94" y="83" font-size="7" text-anchor="middle" fill="#bdb3a5" stroke="none">CW</text>
+          <path d="M108 30 h22" stroke="#c9a35b"/><text x="132" y="33" font-size="7" fill="#e6c78b" stroke="none">sheave</text>
+        </svg>
+        <b>Rope Drive</b><span>Proven traction. Smooth and reliable.</span>
+      </div>
+      <div class="diagram">
+        <svg viewBox="0 0 160 170" fill="none" stroke="#e9e1d4" stroke-width="1.4">
+          <rect x="20" y="6" width="120" height="8"/>
+          <rect x="58" y="18" width="44" height="20"/><text x="80" y="31" font-size="7" text-anchor="middle" fill="#bdb3a5" stroke="none">MOTOR</text>
+          <path d="M70 38 V96" stroke-width="3.2"/><path d="M90 38 V62" stroke-width="3.2"/>
+          <rect x="46" y="96" width="46" height="58"/><path d="M54 104h30M69 104v50"/>
+          <rect x="84" y="62" width="14" height="30" fill="rgba(201,163,91,.22)"/>
+          <path d="M106 50 h22" stroke="#c9a35b"/><text x="130" y="53" font-size="7" fill="#e6c78b" stroke="none">belt</text>
+        </svg>
+        <b>Belt Drive</b><span>Quieter operation. Low maintenance.</span>
+      </div>
+      <div class="diagram">
+        <svg viewBox="0 0 160 170" fill="none" stroke="#e9e1d4" stroke-width="1.4">
+          <rect x="34" y="40" width="54" height="66"/><path d="M42 48h38M61 48v58"/>
+          <rect x="98" y="58" width="12" height="96"/><rect x="100" y="34" width="8" height="26" fill="rgba(201,163,91,.22)"/>
+          <path d="M104 34 V28 H88 V40"/>
+          <rect x="118" y="132" width="26" height="22"/><text x="131" y="146" font-size="6.5" text-anchor="middle" fill="#bdb3a5" stroke="none">PUMP</text>
+          <path d="M110 144 h8"/>
+          <path d="M20 154 h130"/>
+          <path d="M16 58 h14" stroke="#c9a35b"/><text x="6" y="54" font-size="7" fill="#e6c78b" stroke="none">cabin</text>
+        </svg>
+        <b>Hydraulic</b><span>Smooth, quiet and safe. Minimal infrastructure.</span>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="feat-grid">
+      <div><div class="sub">Machine-Room-Less</div><ul class="dots">
+        <li>Ark Z1 needs no machine room on the roof</li><li>Saves space and civil cost in new buildings</li><li>Rope or belt traction up to 1.5 m/s</li></ul></div>
+      <div><div class="sub">Pitless Design</div><ul class="dots">
+        <li>Ark Rise needs no pit and no headroom</li><li>Ideal for adding a lift to an existing home</li><li>Indoor and outdoor installation</li></ul></div>
+      <div><div class="sub">Self-Supporting Structure</div><ul class="dots">
+        <li>Vision lifts stand on their own frame</li><li>No civil shaft, just a 150 mm pit</li><li>Simple turnkey installation</li></ul></div>
+      <div><div class="sub">Power Ready</div><ul class="dots">
+        <li>Ark Rise and Vision run on single-phase power</li><li>No special electrical connection at home</li><li>Ark Z1 runs on three-phase power</li></ul></div>
+    </div>
+  </div>
+  <div class="folio"><span><b>ARK</b> Elevators</span><span>15</span></div>
+</div>
+
+<!-- 17 · FEATURES & TECHNOLOGY (2) -->
+<div class="page">
+  <div class="pad" style="padding-top:22mm">
+    <div class="sub">Smart Controls &amp; Comfort</div>
+    <div class="feat-grid" style="grid-template-columns:62mm 1fr;align-items:center">
+      <svg viewBox="0 0 150 200" style="width:62mm;height:78mm" fill="none" stroke="#e9e1d4" stroke-width="1.3">
+        <rect x="30" y="8" width="60" height="184" rx="4"/>
+        <rect x="40" y="20" width="40" height="26" fill="#1b1917"/><text x="60" y="38" font-size="12" text-anchor="middle" fill="#e6c78b" stroke="none">▲ 3</text>
+        <g><circle cx="50" cy="66" r="7"/><circle cx="70" cy="66" r="7"/><circle cx="50" cy="88" r="7"/><circle cx="70" cy="88" r="7"/><circle cx="50" cy="110" r="7"/><circle cx="70" cy="110" r="7"/></g>
+        <g font-size="7" fill="#e9e1d4" stroke="none" text-anchor="middle"><text x="50" y="69">3</text><text x="70" y="69">2</text><text x="50" y="91">1</text><text x="70" y="91">G</text><text x="50" y="113">◂▸</text><text x="70" y="113">▸◂</text></g>
+        <rect x="42" y="132" width="36" height="16" rx="2" stroke="#c9a35b"/><text x="60" y="143" font-size="6.5" text-anchor="middle" fill="#e6c78b" stroke="none">ALARM</text>
+        <circle cx="60" cy="168" r="6"/><path d="M57 168h6"/>
+        <path d="M94 33 h14" stroke="#c9a35b"/><text x="110" y="36" font-size="7" fill="#bdb3a5" stroke="none">Display</text>
+        <path d="M94 77 h14" stroke="#c9a35b"/><text x="110" y="80" font-size="7" fill="#bdb3a5" stroke="none">Buttons</text>
+        <path d="M94 140 h14" stroke="#c9a35b"/><text x="110" y="143" font-size="7" fill="#bdb3a5" stroke="none">Alarm</text>
+        <path d="M94 168 h14" stroke="#c9a35b"/><text x="110" y="171" font-size="7" fill="#bdb3a5" stroke="none">Intercom</text>
+      </svg>
+      <ul class="dots" style="font-size:8.4pt">
+        <li><b>Colour display</b> with floor and direction indicator</li>
+        <li><b>Feather-touch buttons</b> on a full-height operating panel</li>
+        <li><b>Voice announcer</b> and floor arrival gong</li>
+        <li><b>Automatic rescue</b> to the nearest floor on power failure</li>
+        <li><b>Emergency light, alarm and intercom</b> inside the cabin</li>
+        <li><b>Designer ceiling</b> with LED spots and blower</li>
+        <li><b>Gentle, quiet rides</b> and easy controls for children and elders</li>
+      </ul>
+    </div>
+    <div class="divider"></div>
+    <div class="feat-grid">
+      <div><div class="sub">Durable Materials</div><ul class="dots">
+        <li>Powder-coated metal frames resist corrosion</li><li>Cabins stay clear and bright</li><li>SS hairline and glass finishes</li></ul></div>
+      <div><div class="sub">Universal &amp; Inclusive Design</div><ul class="dots">
+        <li>Easy controls for every generation</li><li>Smooth levelling at every floor</li><li>Door sensors for safe entry and exit</li></ul></div>
+    </div>
+    <div class="divider"></div>
+    <div class="sub">Infinity Cabin Finishes</div>
+    <div class="cab-row">
+      <figure><img src="images/gallery-luxury-elevator-cabin-gold.webp" alt="Gold lift cabin"><figcaption>Champagne gold</figcaption></figure>
+      <figure><img src="images/gallery-lift-cabin-marble-interior.webp" alt="Marble lift cabin"><figcaption>Marble finish</figcaption></figure>
+      <figure><img src="images/gallery-home-elevator-cabin-wood-panels.webp" alt="Wood panel lift cabin"><figcaption>Wood panels</figcaption></figure>
+      <figure><img src="images/lift-cabin-wood-steel-interior-hq.png" alt="Wood and steel lift cabin"><figcaption>Wood &amp; steel</figcaption></figure>
+    </div>
+  </div>
+  <div class="folio"><span><b>ARK</b> Elevators</span><span>16</span></div>
+</div>
+
+<!-- 18 · 05 SAFETY -->
+<div class="page">
+  <div class="pad">
+    <div class="h1" style="margin-top:2mm">Safety</div>
+    <div class="short"></div>
+    <div class="sub">Philosophy</div>
+    <p style="font-size:8.8pt">Every ARK elevator is engineered with passenger safety as the first design criterion, not an afterthought. Built to protect across all conditions: normal operation, power failure and emergency.</p>
+    <div class="sub" style="margin-top:6mm">Safety Features</div>
+    <table class="feat">
+      <thead><tr><th>Feature</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>Automatic Rescue Device (ARD)</td><td>Moves the cabin to the nearest floor during a power failure</td></tr>
+        <tr><td>Door Interlock System</td><td>Mechanical and electrical interlocks keep landing doors shut unless the cabin is present</td></tr>
+        <tr><td>Door Sensor</td><td>Prevents the doors closing on a person or object</td></tr>
+        <tr><td>Overspeed Governor</td><td>Triggers the safety gear if the cabin exceeds rated speed</td></tr>
+        <tr><td>Safety Gear</td><td>Brings the cabin to a controlled stop</td></tr>
+        <tr><td>Terminal Limit Switches</td><td>Upper and lower terminal and final limit switches</td></tr>
+        <tr><td>Emergency Lighting</td><td>Illuminates the cabin during power outages</td></tr>
+        <tr><td>Alarm &amp; Intercom</td><td>Instant communication from inside the cabin</td></tr>
+      </tbody>
+    </table>
+    <div class="sub" style="margin-top:7mm">Certifications</div>
+    <div class="cert3">
+      <div><div class="kicker">Bureau of Indian Standards</div><h5>IS 14665 &amp; IS 17900</h5><p>Indian standards for lifts and lift safety.</p></div>
+      <div><div class="kicker">Safety &amp; Manufacturing</div><h5>CE + ISO 9001:2015</h5><p>CE-marked safety components and quality-assured manufacturing.</p></div>
+      <div><div class="kicker">European Compliance</div><h5>2006/42/EC</h5><p>Machinery Directive for machinery safety.</p></div>
+    </div>
+    <div class="sub" style="margin-top:7mm">Before Your First Ride</div>
+    <ul class="dots check">
+      <li>Structural fit of shaft, pit and headroom</li><li>Speed and levelling check at every floor</li>
+      <li>Drive and guide rail alignment</li><li>Doors, controls and indicators</li>
+      <li>Rated load test</li><li>Electrical connections and power supply</li>
+      <li>Emergency functions</li><li>User walkthrough and handover</li>
+    </ul>
+  </div>
+  <div class="folio"><span><b>ARK</b> Elevators</span><span>17</span></div>
+</div>
+
+<!-- 19 · 06 INSTALLATION -->
+<div class="page">
+  <div class="pad">
+    <div class="h1" style="margin-top:2mm">Installation</div>
+    <div class="short"></div>
+    <div class="feat-grid">
+      <div><div class="sub">What ARK Handles</div><ul class="dots" style="font-size:8.2pt">
+        <li>Site survey and General Arrangement (GA) drawings</li>
+        <li>Complete supply: structure, cabin, drive and controls</li>
+        <li>Installation by trained ARK technicians</li>
+        <li>Testing, commissioning and handover</li></ul></div>
+      <div><div class="sub">What the Customer Provides</div><ul class="dots" style="font-size:8.2pt">
+        <li>Civil shaft for Ark Z1 and Ark Rise as per GA drawing</li>
+        <li>Power supply up to the controller with MCB and earthing</li>
+        <li>Secure, dry storage space near the shaft</li>
+        <li>Scaffolding and unloading of material at site</li></ul></div>
+    </div>
+    <div class="sub" style="margin-top:6mm">Space Requirements</div>
+    <table class="t boxed">
+      <thead><tr><th>Model</th><th>Shaft</th><th>Pit</th><th>Headroom</th></tr></thead>
+      <tbody>
+        <tr><td>Vision 360</td><td>Self-supporting · 1050 mm diameter</td><td>150 mm</td><td>2850 mm</td></tr>
+        <tr><td>Vision Cube</td><td>Self-supporting · 1050 × 1050 mm</td><td>150 mm</td><td>2850 mm</td></tr>
+        <tr><td>Vision Cube Plus</td><td>Self-supporting</td><td>Not required</td><td>As per survey</td></tr>
+        <tr><td>Ark Rise / Infinity</td><td>Civil (RCC) shaft</td><td>Not required</td><td>Not required</td></tr>
+        <tr><td>Ark Z1 / Infinity</td><td>Civil (RCC) shaft</td><td>5 ft</td><td>15 ft</td></tr>
+      </tbody>
+    </table>
+    <div class="steps4" style="margin-top:8mm">
+      <div><div class="k">1 : Site survey</div>
+        <svg viewBox="0 0 120 140" fill="none" stroke="#e9e1d4" stroke-width="1.3"><rect x="20" y="14" width="80" height="104"/><rect x="30" y="66" width="40" height="40" fill="rgba(201,163,91,.22)"/><path d="M20 128 h80 M20 124 v8 M100 124 v8" stroke="#c9a35b"/><text x="60" y="138" font-size="7" text-anchor="middle" fill="#e6c78b" stroke="none">measure</text><path d="M80 30 l8 8 M88 30 l-8 8" stroke="#c9a35b"/></svg>
+        <ul><li>Floor plan measured</li><li>Power point confirmed</li><li>GA drawing approved</li></ul></div>
+      <div><div class="k">2 : Shaft &amp; structure</div>
+        <svg viewBox="0 0 120 140" fill="none" stroke="#e9e1d4" stroke-width="1.3"><rect x="30" y="8" width="60" height="124"/><path d="M30 70 h60"/><rect x="40" y="18" width="40" height="40" fill="rgba(201,163,91,.22)"/><rect x="40" y="80" width="40" height="40" fill="rgba(201,163,91,.22)"/><text x="22" y="40" font-size="7" fill="#bdb3a5" stroke="none">G+1</text><text x="24" y="104" font-size="7" fill="#bdb3a5" stroke="none">G</text></svg>
+        <ul><li>Shaft or frame ready</li><li>Landing door frames set</li><li>Guide rails aligned</li></ul></div>
+      <div><div class="k">3 : Install cabin</div>
+        <svg viewBox="0 0 120 140" fill="none" stroke="#e9e1d4" stroke-width="1.3" ><rect x="30" y="8" width="60" height="124" stroke-dasharray="3 3"/><rect x="38" y="70" width="44" height="56" fill="rgba(201,163,91,.22)"/><path d="M60 8 V70"/><path d="M24 132 h72" stroke-width="2.4"/><text x="98" y="126" font-size="6.5" fill="#bdb3a5" stroke="none">base</text></svg>
+        <ul><li>Drive unit fitted</li><li>Cabin installed</li><li>Panel and controls wired</li></ul></div>
+      <div><div class="k">4 : Handover</div>
+        <svg viewBox="0 0 120 140" fill="none" stroke="#e9e1d4" stroke-width="1.3"><rect x="32" y="10" width="56" height="120"/><path d="M60 10 V130"/><circle cx="60" cy="58" r="13" fill="#171513" stroke="#c9a35b"/><path d="M54 58 l4.5 4.5 8-9" stroke="#c9a35b" stroke-width="1.8"/></svg>
+        <ul><li>Load test done</li><li>Safety checks complete</li><li>User walkthrough</li></ul></div>
+    </div>
+    <p class="note-c">Civil works, electrical supply, storage space and statutory approvals are the client's responsibility.<br>Installation supervised end to end by ARK Elevators trained technicians.</p>
+  </div>
+  <div class="folio"><span><b>ARK</b> Elevators</span><span>18</span></div>
+</div>
+
+<!-- 20 · 07 WARRANTY & SALES -->
+<div class="page">
+  <div class="pad">
+    <div class="h1" style="margin-top:2mm">Warranty &amp; Sales</div>
+    <div class="short"></div>
+    <div class="sub">Warranty Coverage</div>
+    <ul class="dots" style="font-size:8.4pt">
+      <li><b>1-year warranty</b> from the date of handover, covering repair or replacement of defective parts</li>
+      <li><b>4 free preventive maintenance services</b> during the warranty year</li>
+      <li>In-warranty service by ARK's own trained technicians</li>
+    </ul>
+    <div class="sub" style="margin-top:6mm">Warranty Does Not Cover</div>
+    <ul class="dots" style="font-size:8.4pt">
+      <li>Damage due to misuse, power fluctuation or mishandling</li>
+      <li>Consumables such as lights and batteries</li>
+      <li>Unauthorised modifications or service by non-ARK personnel</li>
+    </ul>
+    <div class="sub" style="margin-top:6mm">Annual Maintenance Contract (AMC)</div>
+    <p style="font-size:8.4pt;margin-bottom:3mm">A lift's journey begins with installation. Our AMC plans protect your investment and keep your lift running at its best after the warranty year.</p>
+    <table class="t boxed amc">
+      <thead><tr><th style="width:38mm">Plan</th><th>Coverage</th></tr></thead>
+      <tbody>
+        <tr><td>Standard AMC</td><td>Scheduled preventive maintenance, inspection, lubrication and safety checks</td></tr>
+        <tr><td>Comprehensive AMC</td><td>All Standard services plus repair and replacement of parts, with priority breakdown support</td></tr>
+      </tbody>
+    </table>
+    <div class="sub" style="margin-top:7mm">How to Buy</div>
+    <div class="steps4" style="border:0;padding:0;grid-template-columns:repeat(4,1fr)">
+      <div style="border-top:1.5pt solid var(--gold);padding-top:2.5mm"><b style="font-size:8.6pt">1. Enquire</b><p style="font-size:7.4pt;color:var(--muted)">Call, WhatsApp or email with your floors and space.</p></div>
+      <div style="border-top:1.5pt solid var(--gold);padding-top:2.5mm"><b style="font-size:8.6pt">2. Free survey</b><p style="font-size:7.4pt;color:var(--muted)">We check shaft, pit, headroom and power at your site.</p></div>
+      <div style="border-top:1.5pt solid var(--gold);padding-top:2.5mm"><b style="font-size:8.6pt">3. Quotation</b><p style="font-size:7.4pt;color:var(--muted)">A clear, itemised quote for the right model and finishes.</p></div>
+      <div style="border-top:1.5pt solid var(--gold);padding-top:2.5mm"><b style="font-size:8.6pt">4. Order</b><p style="font-size:7.4pt;color:var(--muted)">Drawings and finishes approved, then supply and installation.</p></div>
+    </div>
+    <p class="muted" style="font-size:7pt;margin-top:6mm">Final warranty, AMC and payment terms are as per the quotation issued for your project.</p>
+    <div style="position:relative;margin-top:6mm;height:48mm;background:url('images/luxury-home-elevator-beside-staircase.webp') center 55%/cover">
+      <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(18,17,16,.85),rgba(18,17,16,.1) 70%)"></div>
+      <div style="position:absolute;left:8mm;top:50%;transform:translateY(-50%);color:#f6efe4">
+        <div class="kicker" style="color:var(--gold-lt)">Peace of mind</div>
+        <div class="h2" style="color:#f6efe4;font-size:20pt;margin-top:1.5mm">Supported long<br>after handover.</div>
+      </div>
+    </div>
+  </div>
+  <div class="folio"><span><b>ARK</b> Elevators</span><span>19</span></div>
+</div>
+
+<!-- 21 · FULL IMAGE -->
+<div class="page">
+  <div class="bg" style="background-image:url('images/residential-lifts-for-builders-glass-elevator.webp');--pos:center 50%"></div>
+  <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,9,8,.85) 0%,rgba(10,9,8,.6) 18%,rgba(10,9,8,.2) 30%,rgba(10,9,8,0) 38%)"></div>
+  <div style="position:absolute;top:18mm;left:11mm;right:18mm;z-index:2">
+    <div class="kicker" style="color:var(--gold-lt);letter-spacing:4px">Ark Elevators</div>
+    <h1 style="margin-top:3mm;font-family:var(--serif);font-weight:500;font-size:46pt;line-height:1.02;color:#f6efe4;text-shadow:0 1px 14px rgba(0,0,0,.45)">Elevating <span style="color:var(--gold-lt)">India's Skyline</span></h1>
+    <div style="width:30mm;height:1pt;margin-top:5mm;background:linear-gradient(90deg,var(--gold),rgba(201,163,91,0))"></div>
+  </div>
+</div>
+
+<!-- 22 · 08 SUPPORT & CONTACT (1) -->
+<div class="page darkpage">
+  <div class="pad">
+    <div class="h1" style="margin-top:2mm">Support &amp; Contact</div>
+    <div class="short"></div>
+    <p class="lead" style="color:#e9e1d4;max-width:160mm">One ARK team supports your lift from the first site visit to every service call after handover.</p>
+    <div class="kicker" style="margin:9mm 0 3mm">Our Office</div>
+    <div class="rows">
+      <div class="r"><span>Address</span><div>Unicity Business Park, Zirakpur–Shimla Highway,<br>Zirakpur, Punjab 140603</div></div>
+      <div class="r"><span>Call</span><div>+91 78890 88890<br>+91 88821 43594</div></div>
+      <div class="r"><span>WhatsApp</span><div>+91 78890 88890</div></div>
+      <div class="r"><span>Email</span><div>info@arkelevators.in</div></div>
+    </div>
+    <div class="kicker" style="margin:10mm 0 3mm">After-Sales Support</div>
+    <div class="svc">
+      <div><b>Preventive Maintenance</b><span>Scheduled checks that keep your lift safe and running smoothly.</span></div>
+      <div><b>Breakdown Support</b><span>Prompt response from our trained technicians when you need it.</span></div>
+      <div><b>Upgrades &amp; Repairs</b><span>Genuine parts, repairs and cabin upgrades for your ARK lift.</span></div>
+    </div>
+  </div>
+  <svg class="mark" viewBox="0 0 210 80" style="left:0;bottom:0;width:210mm;height:80mm" aria-hidden="true"><g fill="none" stroke="#c9a35b" stroke-width=".35" opacity=".5"><path d="M-10 90 L70 18 Q76 13 82 18 L170 96"/><path d="M110 96 L170 40 Q176 35 182 40 L240 96"/></g></svg>
+  <div class="folio on-dark"><span><b>ARK</b> Elevators</span><span>21</span></div>
+</div>
+
+<!-- 23 · SUPPORT & CONTACT (2) -->
+<div class="page darkpage">
+  <div class="pad">
+    <div class="kicker">Frequently Asked</div>
+    <div class="h1" style="margin-top:2mm;font-size:30pt">Before You Call</div>
+    <div class="short"></div>
+    <dl class="faq">
+      <dt>What is the difference between the three series?</dt><dd>Ark Z1 lifts are high-capacity traction lifts for mid- to high-rise buildings. Ark Rise lifts are home lifts with no pit or headroom. Vision lifts are compact, self-supporting turnkey lifts for tight indoor spaces.</dd>
+      <dt>Which lifts run on single-phase power?</dt><dd>The Ark Rise series and the Vision series run on single-phase power. The Ark Z1 series needs three-phase power.</dd>
+      <dt>What does "Infinity" mean?</dt><dd>Infinity models add premium cabin interiors, lighting, flooring and personalised control panels to the standard model.</dd>
+      <dt>Rope or belt drive – which is better?</dt><dd>Both give smooth, efficient travel. We recommend the drive that best suits your building after the site survey.</dd>
+      <dt>Is every lift tested before handover?</dt><dd>Yes. Every installation is load- and function-tested on site before we hand it over.</dd>
+      <dt>How much space does a Vision lift need?</dt><dd>Vision 360 has a 1050 mm external diameter and Vision Cube a 1050 × 1050 mm footprint, with just a 150 mm pit.</dd>
+      <dt>Can Ark Rise be installed outdoors?</dt><dd>Yes. Ark Rise is designed for both indoor and outdoor installation, with no pit or headroom needed.</dd>
+      <dt>Can I get copies of the certificates?</dt><dd>Yes. Contact us and we will share the documents for your chosen model.</dd>
+    </dl>
+    <div style="margin-top:9mm;border:.6pt solid rgba(201,163,91,.55);padding:6mm 7mm">
+      <div class="kicker">For a quick quote, share</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4mm;margin-top:3mm;font-size:8.2pt;color:#f3ebdd">
+        <div><span style="display:block;width:8mm;height:1.5pt;background:var(--gold);margin-bottom:2mm"></span>Building type</div>
+        <div><span style="display:block;width:8mm;height:1.5pt;background:var(--gold);margin-bottom:2mm"></span>Number of floors</div>
+        <div><span style="display:block;width:8mm;height:1.5pt;background:var(--gold);margin-bottom:2mm"></span>Space available</div>
+        <div><span style="display:block;width:8mm;height:1.5pt;background:var(--gold);margin-bottom:2mm"></span>Power supply</div>
+      </div>
+    </div>
+  </div>
+  <div class="folio on-dark"><span><b>ARK</b> Elevators</span><span>22</span></div>
+</div>
+
+<!-- 24 · BACK COVER -->
+<div class="page backcover">
+  <svg class="mark" viewBox="0 0 210 297" style="inset:0;width:210mm;height:297mm" aria-hidden="true">
+    <g fill="none" stroke="#c9a35b" stroke-width=".35" opacity=".5">
+      <path d="M-20 120 L70 30 Q76 24 82 30 L230 178"/>
+      <path d="M-20 175 L95 60 Q101 54 107 60 L230 183"/>
+      <path d="M-20 330 L80 230 Q86 224 92 230 L190 328"/>
+    </g>
+  </svg>
+  <div class="frame"></div>
+  <div style="position:absolute;left:0;right:0;top:118mm;text-align:center">
+    <img class="logo" src="images/ark-elevators-logo-home-lift-company.webp" alt="ARK Elevators">
+    <p style="margin-top:9mm;font-family:var(--serif);font-size:18pt;font-style:italic;color:#f6efe4">Planning a lift? Let's talk.</p>
+    <p style="margin-top:2mm;font-size:7pt;letter-spacing:3px;text-transform:uppercase;color:var(--gold-lt)">Free site survey &amp; model recommendation</p>
+  </div>
+  <div style="position:absolute;left:0;right:0;bottom:18mm;text-align:center;font-size:6.8pt;letter-spacing:2.5px;color:rgba(243,235,221,.75)">
+    +91 78890 88890 &nbsp;|&nbsp; +91 88821 43594 &nbsp;|&nbsp; INFO@ARKELEVATORS.IN<br><span style="letter-spacing:1.5px">UNICITY BUSINESS PARK, ZIRAKPUR–SHIMLA HIGHWAY, ZIRAKPUR 140603</span>
+  </div>
+</div>
+
+<script>
+  // Isometric line drawing of a Vision Cube (3 floors) for page 13.
+  (function () {
+    var svg = document.getElementById('iso'); if (!svg) return;
+    var cx = 525, cy = 800, W = 170, D = 170, H = [0, 205, 410, 615], top = 655;
+    function P(x, y, z) { return [(cx + (x - y) * 0.866).toFixed(1), (cy + (x + y) * 0.5 - z - 75).toFixed(1)]; }
+    function line(a, b, w, c, dash) { return '<line x1="' + a[0] + '" y1="' + a[1] + '" x2="' + b[0] + '" y2="' + b[1] + '" stroke="' + (c || '#e9e1d4') + '" stroke-width="' + (w || 2) + '"' + (dash ? ' stroke-dasharray="' + dash + '"' : '') + '/>'; }
+    function poly(pts, fill, op) { return '<polygon points="' + pts.map(function (p) { return p.join(','); }).join(' ') + '" fill="' + fill + '" fill-opacity="' + op + '"/>'; }
+    var out = '';
+    out += poly([P(0,0,-8), P(W,0,-8), P(W,D,-8), P(0,D,-8)], '#2c2824', 1);
+    out += poly([P(W,0,0), P(W,D,0), P(W,D,top), P(W,0,top)], '#9fb7bb', .12);
+    out += poly([P(0,D,0), P(W,D,0), P(W,D,top), P(0,D,top)], '#9fb7bb', .18);
+    // cabin at ground floor
+    out += poly([P(18,D,8), P(W-18,D,8), P(W-20,D,H[1]-16), P(18,D,H[1]-14)], '#c9a35b', .28);
+    out += line(P(75,D,8), P(75,D,H[1]-14), 1.4, '#9a7536');
+    out += poly([P(W,25,8), P(W,D-25,8), P(W,D-25,H[1]-14), P(W,25,H[1]-14)], '#c9a35b', .14);
+    // frame: posts (back post dashed)
+    [[0,0],[W,0],[W,D],[0,D]].forEach(function (c) { var back = c[0] === 0 && c[1] === 0; out += line(P(c[0],c[1],0), P(c[0],c[1],top), back ? 1.4 : 3, back ? '#6f675e' : '#e9e1d4', back ? '5 5' : null); });
+    // rings at each level + top
+    H.concat([top]).forEach(function (z) {
+      out += line(P(0,0,z), P(W,0,z), 1.4, '#6f675e', '5 5');
+      out += line(P(0,0,z), P(0,D,z), 1.4, '#6f675e', '5 5');
+      out += line(P(W,0,z), P(W,D,z), 3);
+      out += line(P(0,D,z), P(W,D,z), 3);
+    });
+    // landing door frames on the front face
+    H.slice(0, 3).forEach(function (z) { out += line(P(18,D,z+8), P(18,D,z+175), 1.4); out += line(P(W-18,D,z+8), P(W-18,D,z+175), 1.4); out += line(P(18,D,z+175), P(W-18,D,z+175), 1.4); });
+    // gold top cap
+    out += poly([P(0,0,top), P(W,0,top), P(W,D,top), P(0,D,top)], '#c9a35b', .25);
+    // callout dots + leaders
+    function dot(p) { return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="6" fill="#c9a35b" stroke="#171513" stroke-width="2"/>'; }
+    function label(x, y, anchor, title, lines) { var s = '<text x="' + x + '" y="' + y + '" text-anchor="' + anchor + '" font-family="Poppins, Arial" font-size="13" font-weight="600" letter-spacing="2" fill="#f6efe4">' + title.toUpperCase() + '</text>'; lines.forEach(function (t, i) { s += '<text x="' + x + '" y="' + (y + 20 + i * 17) + '" text-anchor="' + anchor + '" font-family="Poppins, Arial" font-size="12.5" fill="#bdb3a5">' + t + '</text>'; }); return s; }
+    var left = [[P(0,D,560), 'Space efficient', ['1050 × 1050 mm footprint', 'fits beside a staircase']], [P(0,D,350), 'Fully customisable', ['Frame colour and cabin', 'finishes to suit your interiors']], [P(0,D,10), '150 mm pit', ['No deep pit or civil', 'shaft needed']]];
+    left.forEach(function (l) { var p = l[0], ex = +p[0] - 150; out += line(p, [String(ex), p[1]], 1.2, '#e9e1d4', '4 4') + dot(p) + label(ex - 12, +p[1] - 4, 'end', l[1], l[2]); });
+    var right = [[P(W,0,500), 'Self-supporting', ['Powder-coated metal frame,', 'resists corrosion']], [P(W,0,290), 'Built to standard', ['CE-marked safety components,', 'ISO 9001:2015']], [P(W,0,70), 'Single phase', ['Runs on normal', 'household power']]];
+    right.forEach(function (r) { var p = r[0], ex = +p[0] + 150; out += line(p, [String(ex), p[1]], 1.2, '#e9e1d4', '4 4') + dot(p) + label(ex + 12, +p[1] - 4, 'start', r[1], r[2]); });
+    svg.innerHTML = out;
+  })();
+
+  // Preview helper: open the file with #p5 to show only page 5.
+  (function () { var m = location.hash.match(/^#p(\d+)$/); if (!m) return; var n = +m[1]; document.querySelectorAll(".page").forEach(function (p, i) { if (i + 1 !== n) p.style.display = "none"; else p.style.margin = "0"; }); document.body.style.background = "none"; })();
+</script>
+</body>
+</html>

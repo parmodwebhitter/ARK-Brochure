@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ARK Elevators – Brochure</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 0; }
+  :root {
+    --ink: #f6efe4; --char: #24201d;
+    --gold: #c9a35b; --gold-lt: #e6c78b; --gold-dk: #d6b16b;
+    --paper: #171513; --line: rgba(201,163,91,.3); --tint: rgba(255,255,255,.04);
+    --txt: #e9e1d4; --muted: rgba(233,225,212,.68);
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Poppins', Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #777; }
+  body { font-family: var(--sans); font-variant-numeric: lining-nums; color: var(--txt); font-size: 9.4pt; line-height: 1.6; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .page { width: 210mm; height: 297mm; position: relative; overflow: hidden; background: radial-gradient(ellipse at 30% 10%, #262220 0%, #171513 55%, #0f0e0d 100%); color: var(--txt); margin: 0 auto 8mm; break-after: page; }
+  .page:last-of-type { break-after: auto; }
+  @media print { html, body { background: none; } .page { margin: 0; } }
+  img { display: block; }
+  b, strong { font-weight: 600; color: var(--ink); }
+  .bg { position: absolute; inset: 0; background-size: cover; background-position: var(--pos, center); }
+  .pad { padding: 20mm 18mm 0; }
+
+  /* type */
+  .h1 { font-family: var(--serif); font-weight: 600; font-size: 34pt; line-height: 1.05; color: var(--ink); }
+  .h2 { font-family: var(--serif); font-weight: 600; font-size: 22pt; line-height: 1.1; color: var(--ink); }
+  .sub { font-size: 8.4pt; font-weight: 600; color: var(--ink); padding-bottom: 1.5mm; margin-bottom: 2.5mm; position: relative; }
+  .sub::after { content: ''; position: absolute; left: 0; bottom: 0; width: 12mm; height: 1.2pt; background: var(--gold); }
+  .kicker { font-size: 7.2pt; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: var(--gold-dk); }
+  .lead { font-family: var(--serif); font-size: 15pt; line-height: 1.35; color: var(--txt); }
+  .lead em { color: var(--gold-dk); font-weight: 600; }
+  .muted { color: var(--muted); }
+  .short { width: 14mm; height: 1.5px; background: var(--gold); margin: 3mm 0 5mm; }
+  p + p { margin-top: 2.5mm; }
+
+  .folio { position: absolute; left: 18mm; right: 18mm; bottom: 9mm; display: flex; justify-content: space-between; font-size: 6.6pt; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); z-index: 3; }
+  .folio b { color: var(--gold-dk); }
+  .folio.on-dark { color: rgba(239,231,218,.7); text-shadow: 0 0 6px rgba(0,0,0,.6); }
+  .folio.on-dark b { color: var(--gold-lt); }
+  .mark { position: absolute; pointer-events: none; }
+
+  .dots { list-style: none; }
+  .dots li { position: relative; padding-left: 5mm; margin: 1.5mm 0; }
+  .dots li::before { content: ''; position: absolute; left: .3mm; top: 2.2mm; width: 1.5mm; height: 1.5mm; background: var(--gold); transform: rotate(45deg); }
+  .ticks { list-style: none; }
+  .ticks li { position: relative; padding-left: 5.5mm; margin: 1.6mm 0; font-size: 8.7pt; }
+  .ticks li::before { content: ''; position: absolute; left: 0; top: 1.7mm; width: 1.7mm; height: 1.7mm; border-right: 1.3pt solid var(--gold-lt); border-top: 1.3pt solid var(--gold-lt); transform: rotate(45deg); }
+
+  /* tables */
+  table.t { width: 100%; border-collapse: collapse; font-size: 8pt; }
+  table.t th { background: rgba(201,163,91,.16); color: var(--gold-lt); font-weight: 500; letter-spacing: 1.4px; text-transform: uppercase; font-size: 6.6pt; text-align: left; padding: 2.8mm 3mm; }
+  table.t td { padding: 2.6mm 3mm; border-bottom: .5pt solid var(--line); vertical-align: top; }
+  table.t td:first-child { font-weight: 600; color: var(--ink); white-space: nowrap; }
+  table.t tr:nth-child(even) td { background: rgba(255,255,255,.035); }
+  table.t.boxed { border: .5pt solid var(--line); }
+
+  /* cover + back */
+  .cover, .backcover { background: radial-gradient(ellipse at 70% 18%, #2b2621 0%, #151311 55%, #0d0c0b 100%); color: #f3ebdd; }
+  .frame { position: absolute; inset: 8mm; border: .4pt solid rgba(201,163,91,.45); pointer-events: none; }
+  .cover .logo { position: absolute; top: 34mm; left: 50%; transform: translateX(-50%); width: 92mm; mix-blend-mode: lighten; }
+  .cover .title { position: absolute; left: 0; right: 0; bottom: 46mm; text-align: center; }
+  .cover .title .kick { font-size: 7.4pt; letter-spacing: 4px; text-transform: uppercase; color: var(--gold-lt); }
+  .cover .title h1 { font-family: var(--serif); font-weight: 500; font-size: 46pt; line-height: 1.02; color: #f6efe4; margin-top: 5mm; }
+  .cover .title h1 em { color: var(--gold-lt); font-weight: 500; }
+  .cover .title .rule { width: 40mm; height: .6pt; margin: 7mm auto 0; background: linear-gradient(90deg, rgba(201,163,91,0), var(--gold), rgba(201,163,91,0)); }
+  .cover .url { position: absolute; bottom: 16mm; left: 0; right: 0; text-align: center; font-size: 6.8pt; letter-spacing: 3px; color: rgba(243,235,221,.7); }
+
+  /* full-bleed photo pages */
+  .shade-t { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,9,8,.86) 0%, rgba(10,9,8,.5) 26%, rgba(10,9,8,0) 50%, rgba(10,9,8,0) 62%, rgba(10,9,8,.45) 100%); }
+  .shade-b { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,9,8,.25) 0%, rgba(10,9,8,0) 25%, rgba(10,9,8,0) 60%, rgba(10,9,8,.8) 100%); }
+  .opener-head { position: absolute; top: 20mm; left: 18mm; right: 18mm; color: #f6efe4; z-index: 2; }
+  .opener-head .h1 { font-size: 38pt; margin-top: 3mm; color: #f6efe4; text-shadow: 0 1px 12px rgba(0,0,0,.35); }
+  .opener-box { position: absolute; left: 18mm; bottom: 20mm; width: 114mm; background: rgba(20,18,16,.9); border: .5pt solid rgba(201,163,91,.55); padding: 7mm 8mm; color: #efe7da; z-index: 2; }
+  .opener-box h4 { font-weight: 600; font-size: 10.5pt; line-height: 1.35; color: #fff; margin-bottom: 3mm; }
+  .opener-box .foot { margin-top: 3.5mm; font-size: 7.6pt; color: var(--gold-lt); }
+
+  /* model page spec card */
+  .spec { position: absolute; width: 86mm; background: rgba(22,20,18,.9); border: .6pt solid rgba(201,163,91,.6); padding: 6.5mm 7mm 7mm; color: #efe7da; z-index: 2; }
+  .spec .tag { font-size: 6.4pt; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold-lt); }
+  .spec h3 { font-family: var(--serif); font-weight: 600; font-size: 28pt; line-height: 1.05; color: #fff; margin: 1.5mm 0 2mm; }
+  .spec .desc { font-size: 7.8pt; line-height: 1.5; color: rgba(239,231,218,.85); margin-bottom: 3.5mm; }
+  .spec dl { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm 5mm; }
+  .spec dt { font-size: 6.1pt; letter-spacing: 1.8px; text-transform: uppercase; color: var(--gold-lt); font-weight: 600; border-top: .5pt solid rgba(201,163,91,.45); padding-top: 1.6mm; }
+  .spec dd { font-size: 7.8pt; color: #fff; text-transform: uppercase; letter-spacing: .4px; }
+  .spec .note { margin-top: 3.5mm; font-size: 6.8pt; font-style: italic; color: var(--gold-lt); }
+
+  /* about */
+  .about-img { position: absolute; right: 0; top: 96mm; width: 92mm; height: 182mm; background-size: cover; }
+  .creds { width: 92mm; }
+  .creds section { margin-top: 6.5mm; }
+  .creds h5 { font-size: 10.5pt; font-weight: 500; color: var(--ink); line-height: 1.3; }
+  .creds .bar { width: 12mm; height: 1.2pt; background: var(--gold); margin: 1.8mm 0 2.2mm; }
+  .creds p { font-size: 8.2pt; color: var(--muted); line-height: 1.5; }
+
+  /* story */
+  .story { text-align: center; padding: 22mm 24mm 0; }
+  .story .bar { padding: 3.5mm 0; margin: 0 0 5mm; border-top: .6pt solid var(--gold); border-bottom: .6pt solid var(--gold); }
+  .story .bar h3 { font-family: var(--serif); font-weight: 600; font-size: 20pt; color: var(--ink); }
+  .story p { color: var(--txt); font-size: 9.3pt; padding: 0 6mm; }
+  .story p i { color: var(--ink); }
+  .story section + section { margin-top: 9mm; }
+
+  /* range at a glance */
+  .glance-strip { position: absolute; left: 0; top: 0; bottom: 0; width: 44mm; background-size: cover; }
+  .glance { position: absolute; left: 56mm; right: 16mm; top: 22mm; }
+  .glance .t td:last-child { white-space: normal; }
+  .glance .h1 { font-size: 30pt; }
+
+  /* overview */
+  .finish { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; margin-top: 4mm; }
+  .finish > div { border: .5pt solid var(--line); background: rgba(255,255,255,.03); padding: 5mm; }
+  .finish h4 { font-family: var(--serif); font-size: 17pt; font-weight: 600; color: var(--ink); }
+  .finish .kicker { font-size: 6.4pt; }
+
+  /* 3D */
+  .callout { position: absolute; font-size: 7pt; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink); line-height: 1.35; }
+  .callout span { display: block; font-weight: 400; letter-spacing: .3px; text-transform: none; color: var(--muted); font-size: 7.4pt; margin-top: .6mm; }
+
+  /* features */
+  .diagrams { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5mm; margin: 4mm 0 2mm; }
+  .diagram { text-align: center; }
+  .diagram svg { width: 100%; height: 64mm; }
+  .diagram b { display: block; font-size: 8.4pt; margin-top: 1mm; }
+  .diagram span { font-size: 7.2pt; color: var(--muted); }
+  .feat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm 9mm; }
+  .feat-grid .dots li { font-size: 8.2pt; margin: 1.2mm 0; }
+  .divider { height: .6pt; background: linear-gradient(90deg, var(--gold), rgba(201,163,91,.1)); margin: 6mm 0; }
+  .cab-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3mm; margin-top: 3mm; }
+  .cab-row figure { position: relative; height: 72mm; overflow: hidden; }
+  .cab-row img { width: 100%; height: 100%; object-fit: cover; }
+  .cab-row figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 6mm 2.5mm 2mm; font-size: 6.2pt; letter-spacing: 1.4px; text-transform: uppercase; color: #fff; background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.75)); }
+
+  /* safety */
+  .feat { width: 100%; border-collapse: collapse; font-size: 8.2pt; }
+  .feat th { text-align: left; font-size: 6.6pt; letter-spacing: 1.8px; text-transform: uppercase; color: var(--gold-dk); font-weight: 600; padding: 0 0 2mm; border-bottom: .8pt solid var(--gold); }
+  .feat td { padding: 1.9mm 0; border-bottom: .5pt solid var(--line); vertical-align: top; }
+  .feat td:first-child { width: 50mm; font-weight: 600; color: var(--ink); padding-right: 4mm; }
+  .feat td:last-child { color: var(--txt); }
+  .cert3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5mm; }
+  .cert3 > div { background: var(--char); border: .5pt solid rgba(201,163,91,.4); color: #efe7da; padding: 5mm 4.5mm; }
+  .cert3 .kicker { color: var(--gold-lt); font-size: 6.2pt; }
+  .cert3 h5 { font-family: var(--serif); font-size: 15pt; font-weight: 600; color: #fff; line-height: 1.1; margin: 1.5mm 0; }
+  .cert3 p { font-size: 7.4pt; color: rgba(239,231,218,.8); line-height: 1.45; }
+  .check { display: grid; grid-template-columns: 1fr 1fr; gap: 0 9mm; }
+  .check li { font-size: 8.2pt; }
+
+  /* installation */
+  .steps4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4mm; border-top: .6pt solid var(--line); padding-top: 5mm; }
+  .steps4 .k { font-size: 7pt; font-weight: 600; color: var(--ink); text-align: center; }
+  .steps4 svg { width: 100%; height: 46mm; margin: 2mm 0; }
+  .steps4 ul { list-style: none; font-size: 7pt; color: var(--muted); line-height: 1.5; }
+  .steps4 li::before { content: '– '; color: var(--gold-dk); }
+  .note-c { text-align: center; font-size: 6.8pt; color: var(--muted); margin-top: 6mm; }
+
+  /* warranty */
+  .amc td:nth-child(2) { white-space: normal; }
+
+  /* support (dark) */
+  .darkpage { background: radial-gradient(ellipse at 30% 10%, #262220 0%, #171513 55%, #0f0e0d 100%); color: #e9e1d4; }
+  .darkpage .h1 { color: #f6efe4; }
+  .darkpage .kicker { color: var(--gold-lt); }
+  .darkpage b { color: #fff; }
+  .rows .r { display: grid; grid-template-columns: 38mm 1fr; padding: 3.6mm 0; border-top: .5pt solid rgba(201,163,91,.35); }
+  .rows .r:last-child { border-bottom: .5pt solid rgba(201,163,91,.35); }
+  .rows .r span { font-size: 7pt; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-lt); font-weight: 600; padding-top: .6mm; }
+  .rows .r div { font-size: 9.4pt; color: #f3ebdd; }
+  .svc { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; }
+  .svc div { border: .5pt solid rgba(201,163,91,.4); padding: 4.5mm; }
+  .svc b { display: block; font-family: var(--serif); font-size: 14pt; font-weight: 600; line-height: 1.15; color: var(--gold-lt); margin-bottom: 1mm; }
+  .svc span { font-size: 7.6pt; color: rgba(233,225,212,.8); line-height: 1.45; display: block; }
+  .faq dt { font-weight: 600; color: #fff; font-size: 8.8pt; margin-top: 4.2mm; }
+  .faq dd { font-size: 8.2pt; color: rgba(233,225,212,.8); margin-top: .8mm; padding-bottom: 3.6mm; border-bottom: .5pt solid rgba(201,163,91,.25); }
+
+  .backcover .logo { width: 70mm; margin: 0 auto; display: block; mix-blend-mode: lighten; }
+</style>
+</head>
+<body>
+<style>
+  .sl { position:absolute; top:10mm; right:10mm; z-index:9; background:var(--gold); color:#111; font:600 8pt var(--sans); padding:1.5mm 3mm; letter-spacing:1px; }
+  .feat-rows { display:grid; grid-template-columns:1fr 1fr; column-gap:10mm; }
+  .feat-rows div { font-size:8.4pt; padding:2.2mm 0; border-bottom:.5pt solid rgba(201,163,91,.3); color:#efe7da; }
+  .feat-rows div b { color:var(--gold-lt); font-weight:600; margin-right:1.5mm; }
+  .chips { display:grid; grid-template-columns:repeat(3,1fr); gap:3mm; }
+  .chips div { border:.5pt solid rgba(201,163,91,.5); padding:3mm 3.5mm; font-size:7.8pt; line-height:1.4; color:#efe7da; background:rgba(255,255,255,.03); }
+  .chips div b { display:block; font-family:var(--serif); font-size:13pt; font-weight:600; color:var(--gold-lt); line-height:1.1; margin-bottom:.8mm; }
+  .stats { display:grid; grid-template-columns:repeat(4,1fr); }
+  .stats div { text-align:center; padding:0 3mm; border-left:.5pt solid rgba(201,163,91,.35); }
+  .stats div:first-child { border-left:0; }
+  .stats b { display:block; font-family:var(--serif); font-size:24pt; font-weight:600; color:var(--gold-lt); line-height:1; }
+  .stats span { display:block; font-size:7pt; letter-spacing:1.5px; text-transform:uppercase; color:rgba(239,231,218,.8); margin-top:1.5mm; }
+</style>
+
+<!-- SAMPLE 1 · centred editorial -->
+<div class="page">
+  <div class="sl">SAMPLE 1</div>
+  <div class="bg" style="top:118mm;background-image:url('images/small-glass-lift-for-home-stairwell.webp');--pos:center 85%"></div>
+  <div style="position:absolute;left:0;right:0;top:118mm;height:12mm;background:linear-gradient(180deg,#151311,rgba(21,19,17,0))"></div>
+  <div style="position:absolute;left:22mm;right:22mm;top:20mm;text-align:center">
+    <div class="kicker">Home Elevators · Vision &amp; Ark Rise</div>
+    <div class="h1" style="margin-top:3mm;font-size:36pt">Safe for Every Generation</div>
+    <div class="short" style="margin:4mm auto 4mm"></div>
+    <p class="lead" style="font-size:13.5pt;color:#e9e1d4">A lift for every home, from compact hallways to grand villas.</p>
+    <div class="feat-rows" style="margin-top:6mm;text-align:left">
+      <div><b>◆</b>Two series, five models</div><div><b>◆</b>Single-phase power on every model</div>
+      <div><b>◆</b>Vision: self-supporting, 150 mm pit</div><div><b>◆</b>Ark Rise: no pit, no headroom</div>
+      <div><b>◆</b>Hydraulic, rope and belt drives</div><div><b>◆</b>Up to G+3, G+4 and G+5</div>
+    </div>
+  </div>
+  <div class="folio on-dark"><span><b>ARK</b> Elevators</span><span>04</span></div>
+</div>
+
+<!-- SAMPLE 2 · split column -->
+<div class="page">
+  <div class="sl">SAMPLE 2</div>
+  <div class="bg" style="left:84mm;background-image:url('images/small-glass-lift-for-home-stairwell.webp');--pos:42% 50%"></div>
+  <div style="position:absolute;left:0;top:0;bottom:0;width:84mm;padding:24mm 9mm 0 14mm;background:#141210;border-right:.6pt solid rgba(201,163,91,.5)">
+    <div class="kicker">Home Elevators</div>
+    <div class="h1" style="margin-top:3mm;font-size:31pt">Safe for Every Generation</div>
+    <div class="h2" style="color:var(--gold-lt);margin-top:2mm;font-size:17pt">Vision &amp; Ark Rise</div>
+    <div class="short"></div>
+    <p style="font-size:8.6pt;color:#e9e1d4">Designed for residences. A lift for every home, from compact hallways to grand villas.</p>
+    <ul class="ticks" style="margin-top:5mm">
+      <li>Two series, five models</li>
+      <li>Single-phase power on every home model</li>
+      <li>Vision: self-supporting, just 150 mm pit</li>
+      <li>Ark Rise: no pit and no headroom</li>
+      <li>Hydraulic, rope and belt drives</li>
+      <li>Up to G+3, G+4 and G+5</li>
+      <li>Infinity models with customised cabins</li>
+    </ul>
+    <p style="margin-top:6mm;font-size:7.6pt;color:var(--gold-lt);font-style:italic">Tailored for villas, independent homes, duplexes and existing houses.</p>
+  </div>
+  <div class="folio on-dark" style="left:14mm;right:auto;width:62mm"><span><b>ARK</b> Elevators</span><span>04</span></div>
+</div>
+
+<!-- SAMPLE 3 · image on top, text below -->
+<div class="page">
+  <div class="sl">SAMPLE 3</div>
+  <div class="bg" style="bottom:84mm;background-image:url('images/small-glass-lift-for-home-stairwell.webp');--pos:center 75%"></div>
+  <div style="position:absolute;left:0;right:0;top:198mm;height:15mm;background:linear-gradient(0deg,#151311,rgba(21,19,17,0))"></div>
+  <div style="position:absolute;left:18mm;right:18mm;top:222mm;display:grid;grid-template-columns:78mm 1fr;gap:9mm">
+    <div>
+      <div class="kicker">Home Elevators</div>
+      <div class="h1" style="margin-top:2mm;font-size:28pt">Safe for Every Generation</div>
+      <div class="h2" style="color:var(--gold-lt);margin-top:1.5mm;font-size:15pt">Vision &amp; Ark Rise</div>
+    </div>
+    <div style="border-left:.6pt solid rgba(201,163,91,.5);padding-left:7mm">
+      <p style="font-size:8.4pt;color:#fff;font-weight:500">A lift for every home, from compact hallways to grand villas.</p>
+      <ul class="ticks" style="margin-top:2mm">
+        <li>Two series, five models · single-phase power</li>
+        <li>Vision: self-supporting, just 150 mm pit</li>
+        <li>Ark Rise: no pit and no headroom</li>
+        <li>Up to G+3, G+4 and G+5</li>
+      </ul>
+    </div>
+  </div>
+  <div class="folio on-dark"><span><b>ARK</b> Elevators</span><span>04</span></div>
+</div>
+
+<!-- SAMPLE 4 · heading + image + stat strip -->
+<div class="page">
+  <div class="sl">SAMPLE 4</div>
+  <div class="bg" style="top:66mm;bottom:64mm;background-image:url('images/small-glass-lift-for-home-stairwell.webp');--pos:center 80%"></div>
+  <div style="position:absolute;left:18mm;right:18mm;top:20mm">
+    <div class="kicker">Home Elevators · Vision &amp; Ark Rise</div>
+    <div class="h1" style="margin-top:2mm;font-size:36pt">Safe for Every Generation</div>
+  </div>
+  <div style="position:absolute;left:18mm;right:18mm;bottom:26mm">
+    <div class="stats">
+      <div><b>5</b><span>Home models</span></div>
+      <div><b>150 mm</b><span>Vision pit</span></div>
+      <div><b>No pit</b><span>Ark Rise</span></div>
+      <div><b>G+5</b><span>Max floors</span></div>
+    </div>
+    <p style="text-align:center;margin-top:6mm;font-size:8pt;color:var(--gold-lt)">Single-phase power on every model · tailored for villas, duplexes and existing houses</p>
+  </div>
+  <div class="folio on-dark"><span><b>ARK</b> Elevators</span><span>04</span></div>
+</div>
+
+<!-- SAMPLE 5 · header + feature cards -->
+<div class="page">
+  <div class="sl">SAMPLE 5</div>
+  <div class="bg" style="top:128mm;background-image:url('images/small-glass-lift-for-home-stairwell.webp');--pos:center 85%"></div>
+  <div style="position:absolute;left:0;right:0;top:128mm;height:12mm;background:linear-gradient(180deg,#151311,rgba(21,19,17,0))"></div>
+  <div style="position:absolute;left:18mm;right:18mm;top:20mm">
+    <div style="display:grid;grid-template-columns:1fr 62mm;gap:8mm;align-items:end">
+      <div>
+        <div class="kicker">Home Elevators</div>
+        <div class="h1" style="margin-top:2mm;font-size:32pt">Safe for Every Generation</div>
+        <div class="h2" style="color:var(--gold-lt);margin-top:1mm;font-size:16pt">Vision &amp; Ark Rise</div>
+      </div>
+      <p style="font-size:8.2pt;color:#e9e1d4;border-left:.6pt solid var(--gold);padding-left:4mm">Designed for residences. A lift for every home, from compact hallways to grand villas.</p>
+    </div>
+    <div class="chips" style="margin-top:7mm">
+      <div><b>Two Series</b>Vision and Ark Rise, five models</div>
+      <div><b>Single Phase</b>Normal household power</div>
+      <div><b>150 mm Pit</b>Vision is self-supporting</div>
+      <div><b>No Pit</b>Ark Rise needs no pit or headroom</div>
+      <div><b>3 Drives</b>Hydraulic, rope and belt</div>
+      <div><b>Up to G+5</b>Infinity cabins available</div>
+    </div>
+  </div>
+  <div class="folio on-dark"><span><b>ARK</b> Elevators</span><span>04</span></div>
+</div>
+
+<script>
+  (function () { var m = location.hash.match(/^#p(\d+)$/); if (!m) return; var n = +m[1]; document.querySelectorAll(".page").forEach(function (p, i) { if (i + 1 !== n) p.style.display = "none"; else p.style.margin = "0"; }); document.body.style.background = "none"; })();
+</script>
+</body>
+</html>
